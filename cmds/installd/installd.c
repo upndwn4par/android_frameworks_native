@@ -121,12 +121,6 @@ static int do_linklib(char **arg, char reply[REPLY_MAX])
     return linklib(arg[0], arg[1], atoi(arg[2]));
 }
 
-static int do_restorecon_data(char **arg __attribute__((unused)),
-    char reply[REPLY_MAX] __attribute__((unused)))
-{
-    return restorecon_data();
-}
-
 static int do_idmap(char **arg, char reply[REPLY_MAX])
 {
     return idmap(arg[0], arg[1], atoi(arg[2]), arg[3]);
@@ -160,7 +154,6 @@ struct cmdinfo cmds[] = {
     { "linklib",              3, do_linklib },
     { "mkuserdata",           3, do_mk_user_data },
     { "rmuser",               1, do_rm_user },
-    { "restorecondata",       0, do_restorecon_data },
     { "idmap",                4, do_idmap },
     { "aapt",                 5, do_aapt },
 };

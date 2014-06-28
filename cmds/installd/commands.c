@@ -1100,35 +1100,6 @@ out:
     return rc;
 }
 
-int restorecon_data()
-{
-    char *data_dir = build_string2(android_data_dir.path, PRIMARY_USER_PREFIX);
-    char *user_dir = build_string2(android_data_dir.path, SECONDARY_USER_PREFIX);
-
-    unsigned int flags = SELINUX_ANDROID_RESTORECON_RECURSE |
-            SELINUX_ANDROID_RESTORECON_DATADATA;
-
-    int ret = 0;
-
-    if (!data_dir || !user_dir) {
-        return -1;
-    }
-
-    if (selinux_android_restorecon(data_dir, flags) < 0) {
-        ALOGE("restorecon failed for %s: %s\n", data_dir, strerror(errno));
-        ret |= -1;
-    }
-
-    if (selinux_android_restorecon(user_dir, flags) < 0) {
-        ALOGE("restorecon failed for %s: %s\n", user_dir, strerror(errno));
-        ret |= -1;
-    }
-
-    free(data_dir);
-    free(user_dir);
-    return ret;
-}
-
 static void run_idmap(const char *target_apk, const char *overlay_apk, int idmap_fd, const char *redirectionsPath)
 {
     static const char *IDMAP_BIN = "/system/bin/idmap";
